@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "885348807637",
+    "project_id": "onlinecontacts-92a22",
+    "storage_bucket": "onlinecontacts-92a22.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:885348807637:android:72bf42e8952375c654435c",
+        "android_client_info": {
+          "package_name": "com.example.online_contacts"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "885348807637-f0iuooprh0m0jhcj2rjarhqar4riik7i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrMx7xI449QJ6Y9ilf4EdfjacMFoHO5K0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "885348807637-f0iuooprh0m0jhcj2rjarhqar4riik7i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

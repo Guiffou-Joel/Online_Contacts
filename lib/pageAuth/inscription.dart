@@ -1,6 +1,17 @@
 import 'package:flutter/material.dart';
 
-class Inscription extends StatelessWidget {
+class Inscription extends StatefulWidget {
+  @override
+  _InscriptionState createState() => _InscriptionState();
+}
+
+class _InscriptionState extends State<Inscription> {
+  String nomComplet = "";
+  String email = "";
+  String motDePass = "";
+  String confirmMdP = "";
+
+  final _formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -8,6 +19,7 @@ class Inscription extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 50.0, horizontal: 30.0),
           child: Form(
+            key: _formkey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
@@ -24,6 +36,8 @@ class Inscription extends StatelessWidget {
                     labelText: "Nom complet",
                     border: OutlineInputBorder(),
                   ),
+                  validator: (val) => val.isEmpty ? "Entrez un nom" : null,
+                  onChanged: (val) => nomComplet = val,
                 ),
                 SizedBox(height: 10.0,),
                 TextFormField(
@@ -31,6 +45,8 @@ class Inscription extends StatelessWidget {
                     labelText: "Email",
                     border: OutlineInputBorder(),
                   ),
+                  validator: (val) => val.isEmpty ? "Entrez un email" : null,
+                  onChanged: (val) => email = val,
                 ),
                 SizedBox(height: 10.0,),
                 TextFormField(
@@ -39,6 +55,8 @@ class Inscription extends StatelessWidget {
                     border: OutlineInputBorder(),
                   ),
                   obscureText: true,
+                  validator: (val) => val.length < 6 ? "Entrez un mot de passe de 6 caracteres ou plus" : null,
+                  onChanged: (val) => motDePass = val,
                 ),
                 SizedBox(height: 10.0,),
                 TextFormField(
@@ -47,9 +65,15 @@ class Inscription extends StatelessWidget {
                     border: OutlineInputBorder(),
                   ),
                   obscureText: true,
+                  validator: (val) => confirmMdP != motDePass ? "La confirmation de mot de passe ne correspond pas" : null,
+                  onChanged: (val) => confirmMdP = val,
                 ),
                 FlatButton(
-                  onPressed: (){},
+                  onPressed: (){
+                    if(_formkey.currentState.validate()){
+                      //TODO: Appliquer la logique
+                    }
+                  },
                   color: Colors.amber,
                   child: Text("S'inscrire"),
                   shape: RoundedRectangleBorder(

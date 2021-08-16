@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class Inscription extends StatefulWidget {
+
+  final Function basculer;
+  Inscription({this.basculer});
   @override
   _InscriptionState createState() => _InscriptionState();
 }
@@ -81,9 +84,11 @@ class _InscriptionState extends State<Inscription> {
                   ),
                 ),
                 OutlineButton(
-                  onPressed: (){},
+                  onPressed: (){
+                    widget.basculer();
+                  },
                   borderSide: BorderSide(width: 1.0, color: Colors.black,),
-                  child: Text("Besoin d'un nouveau compte"),
+                  child: Text("Avez-vous deja un compte ?"),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0),
                   ),

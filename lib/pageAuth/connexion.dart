@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class Connexion extends StatefulWidget {
+
+  final Function basculer;
+  Connexion({this.basculer});
   @override
   _ConnexionState createState() => _ConnexionState();
 }
@@ -62,9 +65,11 @@ class _ConnexionState extends State<Connexion> {
                 ),
                 SizedBox(height: 10.0,),
                 OutlineButton(
-                  onPressed: (){},
+                  onPressed: (){
+                    widget.basculer();
+                  },
                   borderSide: BorderSide(width: 1.0, color: Colors.amber),
-                  child: Text("Avez-vous deja un compte ?"),
+                  child: Text("Besoin d'un nouveau compte ?"),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0),
                   ),

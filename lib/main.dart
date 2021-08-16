@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:online_contacts/pageAuth/inscription.dart';
-import 'package:online_contacts/pageAuth/connexion.dart';
+import 'package:online_contacts/pageAuth/liaison.dart';
 
 void main() => runApp(MonApp());
 
@@ -12,7 +11,7 @@ class MonApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.amber,
       ),
-      home: Connexion(),
+      home: LiaisonPageAuth(),
     );
   }
 }

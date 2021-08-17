@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:online_contacts/constants/chargement.dart';
 
 class Inscription extends StatefulWidget {
 
@@ -23,6 +24,8 @@ class _InscriptionState extends State<Inscription> {
   String motDePass = "";
   String confirmMdP = "";
 
+  bool chargement = false;
+
   final _formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -41,7 +44,7 @@ class _InscriptionState extends State<Inscription> {
       }
     }
 
-    return Scaffold(
+    return chargement ? Chargement() : Scaffold(
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 50.0, horizontal: 30.0),
@@ -98,6 +101,9 @@ class _InscriptionState extends State<Inscription> {
                 FlatButton(
                   onPressed: () async {
                     if(_formkey.currentState.validate()){
+                      setState(() {
+                        chargement = true;
+                      });
                       AuthResult result = await _auth.createUserWithEmailAndPassword(email: email, password: motDePass);
 
                       await collectionUtil.document(_idUtil()).setData({

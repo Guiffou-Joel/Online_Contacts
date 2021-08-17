@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:online_contacts/constants/chargement.dart';
 
 class Connexion extends StatefulWidget {
 
@@ -17,10 +18,12 @@ class _ConnexionState extends State<Connexion> {
   String email = "";
   String motDePass = "";
 
+  bool chargement = false;
+
   final _keyform = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return chargement ? Chargement() : Scaffold(
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 50.0, horizontal: 30.0),
@@ -58,6 +61,9 @@ class _ConnexionState extends State<Connexion> {
                 FlatButton(
                   onPressed: () async {
                     if(_keyform.currentState.validate()){
+                      setState(() {
+                        chargement = true;
+                      });
                       AuthResult result = await _auth.signInWithEmailAndPassword(email: email, password: motDePass);
                       if(result == null){
                         //TODO: error

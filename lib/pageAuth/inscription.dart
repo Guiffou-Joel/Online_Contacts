@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Inscription extends StatefulWidget {
 
@@ -9,6 +11,13 @@ class Inscription extends StatefulWidget {
 }
 
 class _InscriptionState extends State<Inscription> {
+
+  FirebaseAuth _auth = FirebaseAuth.instance;
+  FirebaseUser courentUtil;
+
+  //collection Utilisateur depuis firestore
+  final CollectionReference collectionUtil = Firestore.instance.collection("utilisateurs");
+
   String nomComplet = "";
   String email = "";
   String motDePass = "";
@@ -17,6 +26,21 @@ class _InscriptionState extends State<Inscription> {
   final _formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+
+    FirebaseAuth.instance.currentUser().then((FirebaseUser util){
+      setState(() {
+        this.courentUtil = util;
+      });
+    });
+
+    String _idUtil(){
+      if(courentUtil != null){
+        return courentUtil.uid;
+      }else{
+        return "pas d'utilisateur courant";
+      }
+    }
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -72,9 +96,19 @@ class _InscriptionState extends State<Inscription> {
                   onChanged: (val) => confirmMdP = val,
                 ),
                 FlatButton(
-                  onPressed: (){
+                  onPressed: () async {
                     if(_formkey.currentState.validate()){
-                      //TODO: Appliquer la logique
+                      AuthResult result = await _auth.createUserWithEmailAndPassword(email: email, password: motDePass);
+
+                      await collectionUtil.document(_idUtil()).setData({
+                        'idUtil' : _idUtil,
+                        'nomComplet' : nomComplet,
+                        'emailUtil' : email
+                      });
+
+                      if(result == null){
+                        //TODO: //erreor
+                      }
                     }
                   },
                   color: Colors.amber,

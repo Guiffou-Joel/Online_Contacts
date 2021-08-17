@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Connexion extends StatefulWidget {
 
@@ -9,6 +11,8 @@ class Connexion extends StatefulWidget {
 }
 
 class _ConnexionState extends State<Connexion> {
+
+  FirebaseAuth _auth = FirebaseAuth.instance;
 
   String email = "";
   String motDePass = "";
@@ -52,9 +56,12 @@ class _ConnexionState extends State<Connexion> {
                 ),
                 SizedBox(height: 10.0,),
                 FlatButton(
-                  onPressed: (){
+                  onPressed: () async {
                     if(_keyform.currentState.validate()){
-                    //TODO: ajouter la logique
+                      AuthResult result = await _auth.signInWithEmailAndPassword(email: email, password: motDePass);
+                      if(result == null){
+                        //TODO: error
+                      }
                     }
                   },
                   color: Colors.amber,
